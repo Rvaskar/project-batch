@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>video player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./video.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./img/favicon.jpeg" type="image/x-icon">
+
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-462d1fe….css?vsn=d">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+</head>
+
+<body>
+
+    <main>
+        <div id="videoListCont1">
+            <h2>All Videos</h2>
+        <div id="videoListCont">
+
+        </div>
+        </div>
+        <div id="container">
+            <div class="vidCont">
+                <video width="100%" height="" controls autoplay>
+                    <source id="video" src="./video/vid1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <h4>video</h4>
+             <span id="initial">00:00</span><input type="range"  name="" min="0" max="100" value="0" id="duration">
+            <!-- <audio src="./music/_Shiv Tandav Stotram(PagalWorld.com.cm).mp3" controls></audio> -->
+            <div id="controls">
+                <i class="fa-duotone fa-backward-step"></i>
+                <i class="fa-duotone fa-play"></i>
+                <i class="fa-solid fa-pause"></i>
+                <i class="fa-duotone fa-forward-step"></i>
+                <i class="fa-solid fa-heart"></i>
+                
+            </div>
+            <i class="fa-regular fa-volume"></i> <input type="range" name="" id="volume">
+        </div>
+        <div class="fav-list-item">
+            <h2>Fav List</h2>
+        <div class="favCont">
+            
+        </div>
+        </div>
+        
+    </main>
+    
+    <script src="./videoCopy.js"></script>
+</body>
+
+</html>

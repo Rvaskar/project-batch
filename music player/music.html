@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>music player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./music.css" rel="stylesheet">
+    <link rel="shortcut icon" href="./img/favicon.jpeg" type="image/x-icon">
+
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-462d1fe….css?vsn=d">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+</head>
+
+<body>
+
+    <main>
+        <div id="container">
+            <img src="./img/favicon.jpeg" alt="">
+            <h4>Song Name</h4>
+            <p class="times">
+                <span id="initial"> 00: 00</span>  <span id="last"> 00: 00</span>
+            </p>
+            <input type="range"  name="" id="duration">
+            <audio src="./music/_Shiv Tandav Stotram(PagalWorld.com.cm).mp3" controls></audio>
+            <div id="controls">
+                <i class="fa-duotone fa-backward-step"></i>
+                <i class="fa-duotone fa-play"></i>
+                <i class="fa-solid fa-pause"></i>
+                <i class="fa-duotone fa-forward-step"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div id="volume-cont"><p><i class="fa-solid fa-volume-xmark"></i><i class="fa-sharp fa-solid fa-volume"></i> </p><input type="range" min="0" max="100" name="" value="20" id="volume"><span id="volume_perc">20</span></div>
+        </div>
+    </main>
+    <div id="musicList">
+
+    </div>
+    <script src="./music.js"></script>
+</body>
+
+</html>

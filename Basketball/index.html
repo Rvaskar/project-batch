@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Attendance</title>
+        <meta charset="UTF-8">
+        <!-- <link rel="shortcut icon" href="./images.png" type="image/x-icon"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./attendance.css" rel="stylesheet">
+    </head>
+    <body>
+        <h2>Basket ball score</h2>
+        <main>
+            <div id="container">
+                <h2>Team A</h2>
+                <div class="img"><img src="./basket.jpg" height="100px" width="100px" alt="basket"></div>
+                
+                <div class="scorebox"><div><h1 id="teamAscore">0</h1></div></div>
+                <div id="btn-cont"><button id="btnA1">Add</button><button id="btnA2">End A</button></div>
+                <p id="teamAPscore">Previous Records : </p>
+                <div><h5>total score: <span id="totalA"> 0</span></h5></div>
+                
+            </div>
+            <div id="container1">
+                <h2>Team B</h2>
+                <div class="img"><img src="./basket.jpg" height="100px" width="100px" alt="basket"></div>
+                
+                <div class="scorebox"><div><h1 id="teamBscore">0</h1></div></div>
+                <div id="btn-cont1"><button id="btnB1">Add</button><button id="btnB2">End B</button></div>
+                <p id="teamBPscore">Previous Records : </p>
+                
+                <div><h5>total score: <span id="totalB"> 0</span></h5></div>
+        
+            </div>
+        </main>
+        <div class="end"><button id="endMatch">End Match</button></div>
+    <script src="./attendance.js"></script>
+    </body>
+</html>
