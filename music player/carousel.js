@@ -19,3 +19,8 @@ nextBtn.addEventListener('click', ()=>{
     image.src = Storage[index]
 
 })
+prevBtn.addEventListener('click', ()=>{
+     index = (index - 1 + Storage.length) % Storage.length;
+    image.src = Storage[index]
+
+})

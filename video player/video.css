@@ -179,7 +179,34 @@ main > #container{
     cursor: pointer;
 }
 
-#initial{
+/* #initial{
     position: absolute;
    
+} */
+
+.times{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 0;
+}
+
+#volume-cont{
+    width: 100%;
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+#volume-cont>p{
+    margin-left: 1rem;
+}
+#volume{
+    margin-left: 1rem;
+
+}
+#volume_perc{
+    margin-left: 0.65rem;
+    font-size: 1rem;
+    font-weight: 600;
+
 }

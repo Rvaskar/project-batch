@@ -29,7 +29,11 @@
                 </video>
             </div>
             <h4>video</h4>
-             <span id="initial">00:00</span><input type="range"  name="" min="0" max="100" value="0" id="duration">
+            <p class="times">
+                <span id="initial"> 00: 00</span>  <span id="last"> 00: 00</span>
+            </p>
+             <!-- <span id="initial">00:00</span> -->
+             <input type="range"  name="" min="0" max="100" value="0" id="duration">
             <!-- <audio src="./music/_Shiv Tandav Stotram(PagalWorld.com.cm).mp3" controls></audio> -->
             <div id="controls">
                 <i class="fa-duotone fa-backward-step"></i>
@@ -39,7 +43,8 @@
                 <i class="fa-solid fa-heart"></i>
                 
             </div>
-            <i class="fa-regular fa-volume"></i> <input type="range" name="" id="volume">
+            <div id="volume-cont"><p><i class="fa-solid fa-volume-xmark"></i><i class="fa-sharp fa-solid fa-volume"></i> </p> <input type="range" name="" min="0" max="100" id="volume"><span id="volume_perc">20</span></div>
+            
         </div>
         <div class="fav-list-item">
             <h2>Fav List</h2>

@@ -175,3 +175,10 @@ volume_off.addEventListener('click',()=>{
   });
 
 
+favBtn.addEventListener('click',()=>{
+  if(favBtn.style.color == 'red'){
+    favBtn.style.color = 'black';
+  }else{
+    favBtn.style.color = 'red';
+  }
+})

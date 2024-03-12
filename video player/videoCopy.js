@@ -1,4 +1,5 @@
 let initial = document.querySelector("#initial");
+let last = document.querySelector("#last");
 
 let videoSrc = document.querySelector("video");
 let videoNameBtn = document.querySelector("h4");
@@ -162,3 +163,58 @@ videoSrc.addEventListener("timeupdate", () => {
 
   initial.innerHTML = formattedTime;
 });
+
+videoSrc.addEventListener("timeupdate", () => {
+  let currentTime = videoSrc.duration;
+  let minutes = Math.round(currentTime / 60);
+  let seconds = Math.round(currentTime % 60);
+
+  // Add leading zeros if needed
+  let formattedTime = `${minutes < 10 ? "0" : ""}${minutes}:${
+    seconds < 10 ? "0" : ""
+  }${seconds}`;
+
+ 
+  last.innerHTML = formattedTime;
+});
+
+
+
+
+//! volume
+let volume_off = document.querySelector(".fa-volume-xmark");
+let volume_on = document.querySelector(".fa-volume");
+let volume_perc = document.querySelector("#volume_perc");
+volume_off.style.display = 'none'
+
+let timeOfVolume = 0;
+
+volumeBtn.addEventListener('input',()=>{
+  videoSrc.volume = volumeBtn.value / 100
+  volume_perc.innerText = volumeBtn.value
+  if(videoSrc.volume > 0){
+    volume_off.style.display = 'none'
+    volume_on.style.display = 'block'
+  }else{
+    volume_off.style.display = 'block'
+    volume_on.style.display = 'none'
+    
+  }
+})
+
+volume_on.addEventListener('click',()=>{
+  timeOfVolume = Math.round(videoSrc.volume * 100);
+  volume_off.style.display = 'block'
+  volume_on.style.display = 'none'
+  videoSrc.volume = 0;
+  volumeBtn.value = videoSrc.volume
+  volume_perc.innerText = volumeBtn.value
+
+})
+volume_off.addEventListener('click',()=>{
+  volume_off.style.display = 'none'
+  volume_on.style.display = 'block'
+  videoSrc.volume = timeOfVolume/100;
+  volumeBtn.value = timeOfVolume
+  volume_perc.innerText = volumeBtn.value
+})
