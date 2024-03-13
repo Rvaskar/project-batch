@@ -39,32 +39,34 @@
 // }).catch((e)=>{
 //     console.log(e)
 // })
+
 let dataFromInternet = fetch("https://www.shoppersstack.com/shopping/products/alpha");
-// console.log(dataFromInternet)
+console.log(dataFromInternet)
 
-// dataFromInternet.then((data)=>{
-//     let jsonData = data.json()
-//     console.log(data)
+dataFromInternet.then((data)=>{
+    let jsonData = data.json()
+    console.log(data)
 
-//     jsonData.then((data1)=>{
-//         console.log(data1)
+    jsonData.then((data1)=>{
+        console.log(data1)
 
-//       let data = data1
-//       console.log(data.data)
-//       console.log(data.data[1])
-//       let d1 = data.data;
-//       d1.forEach((e)=>{
-//         document.write('</br> name : ',e.name)
-//         document.write('</br> title : ',e.title)
-//         console.log(e)
-//         document.write(`<img src=${e.productImageURLs[0]}></img>`)
-//       }).then((e)=>{
-//         console.log(e)
-//       })
+      let data = data1
+      console.log(data.data)
+      console.log(data.data[1])
+      let d1 = data.data;
+      d1.forEach((e)=>{
+        document.write('</br> name : ',e.name)
+        document.write('</br> title : ',e.title)
+        console.log(e)
+        document.write(`<img src=${e.productImageURLs[0]}  width='100px' height='100px'></img>`)
+        // body.innerHtml =`<img src=${e.productImageURLs[0]}></img>`
+      }).then((e)=>{
+        console.log(e)
+      })
       
-//        console.log('hey')
+       console.log('hey')
 
-//    })
-// }).catch((e)=>{
-//     console.log(e)
-// })
+   })
+}).catch((e)=>{
+    console.log(e)
+})
