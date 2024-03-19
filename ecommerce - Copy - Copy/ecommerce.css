@@ -1,0 +1,345 @@
+body{
+    margin: 0;
+    background-color: aliceblue;
+    padding: 0;
+}
+::-webkit-scrollbar{
+    width: 5px;
+    margin-right: 5px;
+}
+::-webkit-scrollbar-thumb{
+    height: 5rem;
+    background-color: orange;
+    border-radius: 200px;
+    -webkit-border-radius: 200px;
+    -moz-border-radius: 200px;
+    -ms-border-radius: 200px;
+    -o-border-radius: 200px;
+}
+nav{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: white;
+    border-color: white;
+    display: grid;
+    grid-template-columns: 20% 40% 20%;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+nav > div > img{
+    width: 30%;
+    width: 150px;
+    margin-left: 4rem;
+
+}
+nav > div > ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+}
+nav>div>ul>li>a{
+    text-decoration: none;
+    color: #000;
+    display: block;
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 10px 1.3rem;
+    margin: 5px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+nav>div>ul>li> a:hover{
+    background-color: rgb(223, 223, 223);
+}
+
+nav>.right{
+    display: flex;
+    justify-content: end;
+    padding-right: 2rem;
+    position: relative;
+}
+
+nav>.right >a{
+    margin-right: 1rem;
+
+}
+nav>.right>a>button{
+    padding: 10px 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: 700;
+    background-color: blue;
+    color: aliceblue;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+nav>.right>a>button:active{
+    background-color: rgb(60, 50, 255);
+}
+
+nav>.right>.userLogo{
+    margin-right: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    padding: 10px 10px;
+    border: 2px solid orange;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+nav>.right>.userLogo:hover{
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+nav>.right>span>.userDetails{
+    display: none;
+    /* background-color: white; */
+    background-color: aqua;
+    border: 1px solid orange;
+    border-top: none;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    z-index: 20;
+    top: 50px;
+    right: 30px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+nav>.right>span>.userDetails>p{
+    margin: 5px;
+}
+.nav2{
+    background-color: rgb(2, 2, 2);
+    border-color: white;
+    display: flex;
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    justify-content: space-around;
+    align-items: center;
+    padding-top:2px;
+    padding-bottom: 2px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+.nav2 > div > ul{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+}
+.nav2>div>ul>li>a{
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 10px 1.3rem;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.nav2>div>ul>li> a:hover{
+    background-color: rgb(33, 33, 33);
+}
+.nav2>.nav2-right{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-right: 2rem;
+    position: relative;
+}
+.nav2>.nav2-right input{
+    width: 300px;
+    height: 17px;
+    border: none;
+    outline: none;
+    padding: 5px 1rem;
+    margin-right: 0;
+    border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    -ms-border-radius: 10px 0 0 10px;
+    -o-border-radius: 10px 0 0 10px;
+}
+.nav2>.nav2-right button{
+    background-color:#febd69;
+    width: 40px;
+    margin-left: 0;
+    border-radius: 0 10px 10px 0;
+    height: 30px;
+    -webkit-border-radius: 0 10px 10px 0;
+    -moz-border-radius: 0 10px 10px 0;
+    -ms-border-radius: 0 10px 10px 0;
+    -o-border-radius: 0 10px 10px 0;
+}
+.nav2>.nav2-right .fa-magnifying-glass{
+    text-align: center;
+    font-size: 1rem;
+    color: darkblue;
+    /* margin-left: 1rem; */
+
+    
+}
+
+.userLogo:hover .userDetails{
+    display: block;
+}
+
+
+#maleSection{
+    margin-top: 2rem;
+}
+
+.design {
+    display: grid;
+    grid-template-columns: repeat(4, 21%);
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 2rem;
+
+    
+}
+.design >div{
+    /* height: 450px; */
+    position: relative;
+    background-color: white ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(232, 232, 232) 0px 0px 0px 1px inset;
+    border-radius: 10px;
+    padding-bottom: 3rem;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.design > div>img{
+    width: 100%;
+    
+    height: 300px;
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 1px inset, rgba(215, 215, 215, 0.9) 0px 0px 0px 1px;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -ms-border-radius: 10px 10px 0 0;
+    -o-border-radius: 10px 10px 0 0;
+}
+.design >div>h2,h3,h4{
+    color: rgb(0, 0, 0);
+    padding-left: 1rem;
+    padding: 8px;
+    margin: 0px;
+}
+.design >div>h2{    
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    
+}
+/* .design >div>h4{
+} */
+
+.design > div>button{
+    width: 100%;
+    background-color: blue;
+    color: white;
+    border: none;
+    height: 3rem;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    font-size: 1rem;
+    cursor: pointer;
+    bottom: 0;
+    -webkit-border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    -ms-border-radius: 0 0 10px 10px;
+    -o-border-radius: 0 0 10px 10px;
+}
+.design > div > .offer{
+    margin-left: 1rem;
+    background-color: rgb(236, 0, 0);
+    padding: 2px 10px;
+    color: white;
+}
+.design > div > .strike{
+    text-decoration: line-through;
+}
+.design > div > .deal-off{
+    color: red;
+    margin-left: 5px;
+}
+.design > div > .superscript {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+
+#popup{
+    transition: 1s;
+    width: 25%;
+    overflow-y: scroll;
+    height: 100vh;
+    scrollbar-color: red;
+    background-color: aqua;
+    z-index: 100;
+    top: 0;
+    position: fixed;
+    right: -100%;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+
+}
+
+#static>h3{
+    text-align: right;
+    font-size: 2rem;
+    margin: 0;
+}
+
+#static>h2{
+    text-align: center;
+}
+
+/* today done */
+
+.cart-design{
+    display: grid;
+    grid-template-columns: 20% 30% 15% 15%;
+    justify-content: space-between;
+}
+.cart-design> div> img{
+    width: 100%;
+}
+.cart-design> div>input{
+    width: 33%;
+}
+.cart-design> div> h2,h3,h4{
+    color: black;
+}
+.cart-design> div> h2{
+    font-size: 16px;
+}

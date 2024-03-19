@@ -44,3 +44,20 @@ async function demoData(){
 }
 
 demoData()
+
+
+// let api = 'https://www.shoppersstack.com/shopping/products/alpha'
+// async function fetchData(){
+//     try {
+//         let data =await fetch(api)
+//         let  data1 =await data.json()
+    
+//         console.log(data1)
+//         console.log(data1.data)
+//         document.write(data1.data[0].name)
+//         document.write(data1.data[0].title)
+//     } catch (error) {
+        
+//     }
+// }
+// fetchData( )
