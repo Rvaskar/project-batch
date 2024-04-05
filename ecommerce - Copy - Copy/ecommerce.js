@@ -1,332 +1,983 @@
-let login = document.querySelector('.right')
-let maleCont = document.querySelector('#maleCont')
-let femaleCont = document.querySelector('#femaleCont')
-let kidsCont = document.querySelector('#kidsCont')
-let electronicsCont = document.querySelector('#electronicsCont')
-let popup = document.querySelector('#popup')
-let x = document.querySelector('#x')
-let productList1 = document.querySelector('#productList')
-let search_mobile = document.querySelector('#search-mobile')
-let search_laptop = document.querySelector('#search-laptop')
-let search_watch = document.querySelector('#search-watch')
-let search_headphones = document.querySelector('#search-headphones')
-let dynamic = document.querySelector('#dynamic')
+let login = document.querySelector(".right");
+let maleCont = document.querySelector("#maleCont");
+let femaleCont = document.querySelector("#femaleCont");
+let kidsCont = document.querySelector("#kidsCont");
+let electronicsCont = document.querySelector("#electronicsCont");
+let popup = document.querySelector("#popup");
+let x = document.querySelector("#x");
+let x1 = document.querySelector("#x1");
+let defineCont = document.querySelector("#defineCont");
+let search_mobile = document.querySelector("#search-mobile");
+let search_laptop = document.querySelector("#search-laptop");
+let search_watch = document.querySelector("#search-watch");
+let search_headphones = document.querySelector("#search-headphones");
+let search_beauty = document.querySelector("#search-beauty");
+let payment = document.querySelector("#payment");
 
-let cartStorage = []
+let dynamic = document.querySelector("#dynamic");
+let search = document.querySelector("#serach");
+let searchProductBtn = document.querySelector("#searchProduct");
+let showProductDetails = document.querySelector(".showProductDetails");
+let outercont_showProductDetails = document.querySelector(
+  ".outercont_showProductDetails"
+);
 
+let priceToPay = 0;
 
-x.addEventListener('click',()=>{
-    popup.style.right = '-100%'
-})
+let cartStorage = [];
 
+x.addEventListener("click", () => {
+  popup.style.right = "-100%";
+});
 
-console.log(login)
+console.log(login);
 
-let particularUser = JSON.parse(localStorage.getItem('particularUser'))
-console.log(particularUser)
+let particularUser = JSON.parse(localStorage.getItem("particularUser"));
+console.log(particularUser);
 
-if(particularUser){
-    login.innerHTML=`
-    <span class='userLogo'>${particularUser.first.slice(0,1).toUpperCase()}${particularUser.last.slice(0,1).toUpperCase()}
+if (particularUser) {
+  login.innerHTML = `
+    <span class='userLogo'>${particularUser.first
+      .slice(0, 1)
+      .toUpperCase()}${particularUser.last.slice(0, 1).toUpperCase()}
     <div class="userDetails">
                 <p>Name: ${particularUser.first} ${particularUser.last}</p>
                 <p>Email:  ${particularUser.email}</p>
                 <p>Mobile: ${particularUser.phone}</p>
     </div>
     </span>
-    <a href='./ecommerce.html' id='logout'><button>Logout</button></a>`
+    <a href='./ecommerce.html' id='logout'><button>Logout</button></a>`;
 
-    let logout = document.querySelector('#logout')
-logout.addEventListener('click',()=>{
-    localStorage.removeItem('particularUser')
+  let logout = document.querySelector("#logout");
+  logout.addEventListener("click", () => {
+    localStorage.removeItem("particularUser");
+  });
+}
+
+async function fetchData() {
+  let datFromServer = await fetch(
+    "https://www.shoppersstack.com/shopping/products/alpha"
+  );
+  let allData = await datFromServer.json();
+  console.log(allData.data);
+
+  let trending = allData.data.filter((e) => {
+    if (e.offer > 50) {
+      return e;
+    }
+  });
+
+  trending.map((e) => {
+    defineCont.innerHTML += `
+        <div id='${e.productId}'>
+            <img src="${e.productImageURLs[0]}" alt="">
+            <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+            ${
+              e.offer > 0
+                ? `<span class='offer'>${
+                    e.offer
+                  }% off</span><span class='deal-off'>Limited time deal</span>
+            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+              ((100 - e.offer) * e.price) / 100
+            )}.00  </h3>
+            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+                : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+            }
+            <h4>Rating: ${e.rating}</h4>
+            <button class='btn'>Add To Cart</button>
+        </div>
+        `;
+  });
+
+  let maleData = allData.data.filter((e) => {
+    if (e.category == "men") {
+      return e;
+    }
+  });
+
+  maleData.map((e) => {
+    maleCont.innerHTML += `
+        <div id='${e.productId}'>
+            <img src="${e.productImageURLs[0]}" alt="">
+            <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+            ${
+              e.offer > 0
+                ? `<span class='offer'>${
+                    e.offer
+                  }% off</span><span class='deal-off'>Limited time deal</span>
+            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+              ((100 - e.offer) * e.price) / 100
+            )}.00  </h3>
+            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+                : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+            }
+            <h4>Rating: ${e.rating}</h4>
+            <button class='btn'>Add To Cart</button>
+        </div>
+        `;
+  });
+
+  let femaleData = allData.data.filter((e) => {
+    if (e.category == "women") {
+      return e;
+    }
+  });
+  femaleData.map((e) => {
+    femaleCont.innerHTML += `
+        <div id='${e.productId}'>
+            <img src="${e.productImageURLs[0]}" alt="">
+            <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+            ${
+              e.offer > 0
+                ? `<span class='offer'>${
+                    e.offer
+                  }% off</span><span class='deal-off'>Limited time deal</span>
+            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+              ((100 - e.offer) * e.price) / 100
+            )}.00  </h3>
+            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+                : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+            }
+            <h4>Rating: ${e.rating}</h4>
+            <button class='btn'>Add To Cart</button>
+        </div>
+        `;
+  });
+
+  let kidsCont1 = allData.data.filter((e) => {
+    if (e.category == "kids") {
+      return e;
+    }
+  });
+  kidsCont1.map((e) => {
+    kidsCont.innerHTML += `
+        <div id='${e.productId}'>
+            <img src="${e.productImageURLs[0]}" alt="">
+            <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+            ${
+              e.offer > 0
+                ? `<span class='offer'>${
+                    e.offer
+                  }% off</span><span class='deal-off'>Limited time deal</span>
+            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+              ((100 - e.offer) * e.price) / 100
+            )}.00  </h3>
+            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+                : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+            }
+            <h4>Rating: ${e.rating}</h4>
+            <button class='btn'>Add To Cart</button>
+        </div>
+        `;
+  });
+
+  let electronics = allData.data.filter((e) => {
+    if (e.category == "electronics") {
+      return e;
+    }
+  });
+  electronics.map((e) => {
+    electronicsCont.innerHTML += `
+        <div id='${e.productId}'>
+            <img src="${e.productImageURLs[0]}" alt="">
+            <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+            ${
+              e.offer > 0
+                ? `<span class='offer'>${
+                    e.offer
+                  }% off</span><span class='deal-off'>Limited time deal</span>
+            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+              ((100 - e.offer) * e.price) / 100
+            )}.00  </h3>
+            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+                : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+            }
+            <h4>Rating: ${e.rating}</h4>
+            <button class='btn'>Add To Cart</button>
+        </div>
+        `;
+  });
+
+  //!SEARCHING FOR MOBILE
+
+  search_mobile.addEventListener("click", () => {
+    // let div1 = document.createElement('div');
+    //     div1.className = 'design';
+    let search_mobile1 = allData.data.filter((e) => {
+      if (e.type == "mobile") {
+        return e;
+      }
+    });
+
+    defineCont.innerHTML = "";
+    search_mobile1.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+           
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+
+  //! SEARCHIN FOR LAPTOP
+  search_laptop.addEventListener("click", () => {
+    let search_laptop1 = allData.data.filter((e) => {
+      if (e.type == "laptop") {
+        return e;
+      }
+    });
+
+    defineCont.innerHTML = "";
+    search_laptop1.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+           
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+    console.log(btn);
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+
+  //! SEARCHING FOR watch
+  search_watch.addEventListener("click", () => {
+    let search_watch1 = allData.data.filter((e) => {
+      if (e.type == "watch") {
+        return e;
+      }
+    });
+
+    defineCont.innerHTML = "";
+    search_watch1.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+    console.log(btn);
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+
+  //! SEARCHING FOR headphones
+  search_headphones.addEventListener("click", () => {
+    let search_headphones1 = allData.data.filter((e) => {
+      if (e.type == "headphones") {
+        return e;
+      }
+    });
+
+    defineCont.innerHTML = "";
+    search_headphones1.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+           
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+    console.log(btn);
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+  //! SEARCHING FOR beauty
+  search_beauty.addEventListener("click", () => {
+    let search_beauty1 = allData.data.filter((e) => {
+      if (e.category == "beauty") {
+        return e;
+      }
+    });
+
+    defineCont.innerHTML = "";
+    search_beauty1.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+           
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+    console.log(btn);
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+
+  // let inputSearch = allData.data.filter((e)=>{
+  //    let b =  e.searchTags.find((e)=>{e=='Headphone'}) || e.category.includes("Headphone") ;
+
+  // if(b){console.log( e)}
+
+  // })
+
+  // let btn = document.querySelectorAll('.btn')
+
+  //     btn.forEach((e)=>{
+  //         e.addEventListener('click',()=>{
+  //            popup.style.right='0'
+
+  //            if(particularUser){
+  //             let parentElement = e.parentElement.id
+  //             console.log(parentElement)
+
+  //             let oneProduct = allData.data.find((e)=>{
+  //                 if(e.productId == parentElement){
+  //                     return e
+  //                 }
+  //             })
+  //             cartStorage.push(oneProduct)
+  //             cartStorage = [...new Set(cartStorage)];
+  //             dynamic.innerHTML = ''
+  //             cartStorage.map((e)=>{
+  //                 dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
+  //                 <div><img src="${e.productImageURLs[0]}" alt=""></div>
+  //                 <div>
+  //                     <h2>${e.name}</h2>
+  //                     <input type="number" name="" id="">
+  //                 </div>
+  //                 <div>
+  //                     <h3>${e.price}</h3>
+  //                 </div>
+  //                 <div>
+  //                     <h4>${e.price}</h4>
+  //                 </div>
+  //             </div>`
+  //             })
+  //         }else{
+  //             dynamic.innerHTML='<a href="./index.html">login first </a>'
+  //            }
+  //         })
+  //     })
+
+  let btn = document.querySelectorAll(".btn");
+
+  btn.forEach((e) => {
+    e.addEventListener("click", () => {
+      popup.style.right = "0";
+
+      if (particularUser) {
+        let parentElement = e.parentElement.id;
+
+        let oneProduct = allData.data.find((e) => {
+          if (e.productId == parentElement) {
+            return e;
+          }
+        });
+        cartStorage.push(oneProduct);
+        cartStorage = [...new Set(cartStorage)];
+
+        print();
+        subTotal();
+        del();
+        grandTotal();
+      } else {
+        dynamic.innerHTML = '<a href="./index.html">login first </a>';
+      }
+    });
+  });
+
+  // let showInfo = document.querySelectorAll('#showInfo')
+  // showInfo.forEach((e)=>{
+  //     e.addEventListener('click',()=>{
+  //         outercont_showProductDetails.style.display = 'block'
+
+  //         let parentElement = e.parentElement.id
+
+  //         let oneProduct = allData.data.find((e)=>{
+  //             if(e.productId == parentElement){
+  //                 return e
+  //             }
+  //         })
+  //         showProductDetails.innerHTML = ``
+
+  //             showProductDetails.innerHTML += `
+
+  //             <div class="showProductLeft">
+  //         <div class="showImgs">
+  //             <img src=" ${oneProduct.productImageURLs[0]}" alt="">
+  //         </div>
+  //         <hr>
+  //         <div class="showAllImages">
+  //         <img src=" ${oneProduct.productImageURLs[0]}" alt="">
+  //         <img src=" ${oneProduct.productImageURLs[1]}" alt="">
+  //         <img src=" ${oneProduct.productImageURLs[2]}" alt="">
+  //         </div>
+  //         <div class="reviewsCont">
+  //             <h2>Customer Reviews</h2>
+  //             <div>
+  //                 <p>good and best</p>
+  //                 <h4>- parimal</h4>
+  //             </div>
+  //         </div>
+  //     </div>
+  //     <div class="productInfo">
+  //         <h1>${oneProduct.name}</h1>
+  //         <h4>${oneProduct.title}</h4>
+  //         <h3>${oneProduct.brand}</h3>
+  //         <hr>
+  //         ${oneProduct.offer>0? `<span class='offer'>${oneProduct.offer}% off</span><span class='deal-off'>Limited time deal</span>
+  //         <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-oneProduct.offer)*oneProduct.price)/100)}.00  </h3>
+  //         <h3 class='strike'>M.R.P.: &#8377; ${oneProduct.price}  </h3>` : `<h3>M.R.P.: &#8377; ${oneProduct.price}  </h3>`}
+  //         <h2>Description:</h2>
+  //         <p>${oneProduct.description.replaceAll('\n','<br>').replaceAll('\t','<b>:</b>')}</p>
+  //     </div>
+  //             `
+
+  //     })
+  // })
+
+  showProductData();
+
+  function showProductData() {
+    let showInfo = document.querySelectorAll("#showInfo");
+
+    showInfo.forEach((e) => {
+      e.addEventListener("click", () => {
+        outercont_showProductDetails.style.display = "block";
+
+        let parentElement = e.parentElement.id;
+
+        let oneProduct = allData.data.find((e) => {
+          if (e.productId == parentElement) {
+            return e;
+          }
+        });
+
+        
+
+
+        showProductDetails.innerHTML = ``;
+
+        showProductDetails.innerHTML += ` 
+                    
+                    <div class="showProductLeft">
+                <div class="showImgs">
+                    <img id='mainImg' src=" ${oneProduct.productImageURLs[0]}" alt="">
+                </div>
+                <hr>
+                <div class="showAllImages">
+                ${oneProduct.productImageURLs.map((e) => {
+                  return `<img src='${e}' alt=""></img>`;
+                })}
+                 <img src=" ${oneProduct.productImageURLs[0]}" alt="">
+                </div>
+                <h2>Customer Reviews</h2>
+                <div class="reviewsCont">
+                ${
+                  oneProduct.reviews && oneProduct.reviews.length > 0
+                    ? oneProduct.reviews
+                        .map((e) => {
+                          if (e && typeof e === "object") {
+                            return `
+                        <p>${e.heading}</p>
+                        <p>${e.description}</p>
+                        <h4>- ${e.shopperName}</h4>`;
+                          }
+                        })
+                        .join("")
+                    : "No reviews yet."
+                }
+                </div>
+            </div>
+            <div class="productInfo">
+                <h1>${oneProduct.name}</h1>
+                <h4>${oneProduct.title}</h4>
+                <h3>${oneProduct.brand}</h3>
+                <hr>
+                ${
+                  oneProduct.offer > 0
+                    ? `<span class='offer'>${
+                        oneProduct.offer
+                      }% off</span><span class='deal-off'>Limited time deal</span>
+                <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+                  ((100 - oneProduct.offer) * oneProduct.price) / 100
+                )}.00  </h3>
+                <h3 class='strike'>M.R.P.: &#8377; ${oneProduct.price}  </h3>`
+                    : `<h3>M.R.P.: &#8377; ${oneProduct.price}  </h3>`
+                }
+                <h2>Description:</h2>
+                <p>${oneProduct.description
+                  .replaceAll("\n", "<br>")
+                  .replaceAll("\t", "<b>:</b>")}</p>
+            </div>
+                    `;
+
+
+                    let image = document.querySelector('#mainImg')
+                    let index = 0;
+
+            setInterval(() => {
+                index = (index + 1) % oneProduct.productImageURLs.length;
+                image.src = oneProduct.productImageURLs[index]
+            }, 2000);
+      });
+    });
+  }
+
+//   searchProductBtn.addEventListener("click", () => {
+//     console.log(search.value);
+//   });
+   //! SEARCHING FOR search input
+   searchProductBtn.addEventListener("click", () => {
+    let searchProduct = allData.data.filter((e) => {
+    //   if (e.category == "beauty") {
+    //     return e;
+    //   }
+        let product = e.searchTags.find((e)=>{
+            if(e == search.value){
+                return true
+            }
+        })
+        if(product){
+            console.log(e)
+            return e
+        }
+
+
+    });
+
+    defineCont.innerHTML = "";
+    searchProduct.map((e) => {
+      defineCont.innerHTML += `
+           
+           <div id='${e.productId}'>
+           <img src="${e.productImageURLs[0]}" alt="">
+           <h2 id='showInfo'>${e.name.slice(0, 50)}</h2>
+           ${
+             e.offer > 0
+               ? `<span class='offer'>${
+                   e.offer
+                 }% off</span><span class='deal-off'>Limited time deal</span>
+           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(
+             ((100 - e.offer) * e.price) / 100
+           )}.00  </h3>
+           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>`
+               : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`
+           }
+           <h4>Rating: ${e.rating}</h4>
+           <button class='btn'>Add To Cart</button>
+       </div>
+           
+            `;
+    });
+    showProductData();
+
+    let btn = document.querySelectorAll(".btn");
+    console.log(btn);
+
+    btn.forEach((e) => {
+      e.addEventListener("click", () => {
+        popup.style.right = "0";
+        if (particularUser) {
+          let parentElement = e.parentElement.id;
+          console.log(parentElement);
+
+          let oneProduct = allData.data.find((e) => {
+            if (e.productId == parentElement) {
+              return e;
+            }
+          });
+          cartStorage.push(oneProduct);
+          cartStorage = [...new Set(cartStorage)];
+
+          print();
+          subTotal();
+          del();
+          grandTotal();
+        } else {
+          dynamic.innerHTML = '<a href="./index.html">login first </a>';
+        }
+      });
+    });
+  });
+
+
+}
+x1.addEventListener("click", () => {
+  outercont_showProductDetails.style.display = "none";
+});
+
+fetchData();
+
+function print() {
+  dynamic.innerHTML = "";
+  cartStorage.map((e) => {
+    dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
+            <div><img src="${e.productImageURLs[0]}" alt=""></div>
+            <div>
+                <h2>${e.name}</h2>
+                <input type="number" name="" id="">
+            </div>
+            <div>
+                <h3 class='price'>${
+                  e.offer > 0
+                    ? `
+                ${Math.floor(((100 - e.offer) * e.price) / 100)}`
+                    : ` ${e.price}`
+                }</h3>
+            </div>
+            <div>
+                <h4 class='subTotal'>${
+                  e.offer > 0
+                    ? `
+                ${Math.floor(((100 - e.offer) * e.price) / 100)}`
+                    : ` ${e.price}`
+                }</h4>
+                <i class="fa-solid fa-trash"></i>
+            </div>
+        </div>`;
+  });
+  del();
+}
+
+function del() {
+  let trash = document.querySelectorAll(".fa-trash");
+  trash.forEach((e) => {
+    e.addEventListener("click", () => {
+      console.log(e);
+      let parentElement = e.parentElement.parentElement;
+      console.log(parentElement);
+      cartStorage = cartStorage.filter((e) => {
+        if (parentElement.id != e.productId) {
+          return e;
+        }
+      });
+      console.log(cartStorage);
+
+      print();
+      grandTotal();
+    });
+  });
+}
+
+function subTotal() {
+  let sub = document.querySelectorAll(".subTotal");
+  console.log(sub);
+  let quantity = document.querySelectorAll("input");
+  quantity.forEach((e) => {
+    e.addEventListener("input", () => {
+      if (e.value < 1) {
+        e.value = 1;
+      }
+
+      let parentElement = e.parentElement.parentElement;
+      let price = parentElement.querySelector(".price");
+      let sub = parentElement.querySelector(".subTotal");
+      sub.innerHTML = e.value * price.innerHTML;
+      grandTotal();
+    });
+  });
+}
+
+function grandTotal() {
+  let gt = document.querySelector("#gt");
+  let sub = document.querySelectorAll(".subTotal");
+  let sum = 0;
+  sub.forEach((e) => {
+    let total = parseInt(e.innerHTML);
+    sum = sum + total;
+  });
+
+  gt.innerHTML = sum;
+  priceToPay = sum;
+}
+
+let for_Payment = document.querySelector('#for_Payment')
+let credit_card = document.querySelector('#credit_card');
+
+const creditCardInput = document.getElementById('credit_card');
+const cont = document.getElementById('for_Payment'); 
+const EMI = document.getElementById('EMI'); 
+const emi_payment = document.getElementById('emi_payment'); 
+const net_banking = document.getElementById('net_banking'); 
+const net_banking_cont = document.getElementById('net_banking_cont'); 
+const cash_on_delivery = document.getElementById('cash_on_delivery'); 
+
+let cardNumber = document.getElementById('cardNumber');
+let passCode = document.getElementById('passCode');
+
+let regx = /^[0-9]$/
+// Add event listener for input event
+cardNumber.addEventListener('input', function(event) {
+  // Get the input value
+  let inputValue = event.target.value;
+  
+  // Remove non-numeric characters
+  inputValue = inputValue.replace(/\D/g, '');
+  
+  // Update the input value
+  event.target.value = inputValue;
+});
+// Add event listener for input event
+passCode.addEventListener('input', function(event) {
+  // Get the input value
+  let inputValue = event.target.value;
+  
+  // Remove non-numeric characters
+  inputValue = inputValue.replace(/\D/g, '');
+  
+  // Update the input value
+  event.target.value = inputValue;
+});
+
+creditCardInput.addEventListener('change', function() {
+    if (this.checked && this.value === 'credit_card') {
+      cont.style.display = 'block';
+      emi_payment.style.display = 'none';
+  }
+});
+EMI.addEventListener('change', function() {
+    if (this.checked) {
+      emi_payment.style.display = 'block';
+      cont.style.display = 'none';
+      net_banking_cont.style.display = 'none';
+  }
+});
+net_banking.addEventListener('change', function() {
+    if (this.checked) {
+      net_banking_cont.style.display = 'block';
+      cont.style.display = 'none';
+      emi_payment.style.display = 'none';
+  }
+});
+cash_on_delivery.addEventListener('change', function() {
+    if (this.checked) {
+      net_banking_cont.style.display = 'none';
+      cont.style.display = 'none';
+      emi_payment.style.display = 'none';
+  }
+});
+function proceedToPay(){
+  payment.style.display='block'
+}
+
+let donePayment = document.getElementById('donePayment');
+donePayment.addEventListener('click',()=>{
+  payment.style.display='none'
+  let productBuy = []
+  cartStorage.map((e) => {
+    productBuy = `
+                ${e.name} : ${
+                  e.offer > 0
+                    ? `
+                ${Math.floor(((100 - e.offer) * e.price) / 100)}`
+                    : ` ${e.price}`
+                }`;
+              });
+              alert(` ${productBuy} Rs. ${priceToPay} payment is done`)
+  cartStorage = []
+  dynamic.innerHTML = "";
+  gt.innerHTML = 0;
 })
-}
 
 
-
-
-async function fetchData(){
-    let datFromServer =await fetch('https://www.shoppersstack.com/shopping/products/alpha')
-    let allData =await  datFromServer.json()
-    console.log(allData.data)
-
-    let maleData = allData.data.filter((e)=>{
-        if(e.category=='men'){
-            return e
-        }
-    })
-
-    maleData.map((e)=>{
-        maleCont.innerHTML += `
-        <div id='${e.productId}'>
-            <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
-            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-            <h4>Rating: ${e.rating}</h4>
-            <button class='btn'>Add To Cart</button>
-        </div>
-        `
-    })
-
-    let femaleData = allData.data.filter((e)=>{
-        if(e.category=='women'){
-            return e
-        }
-    })
-    femaleData.map((e)=>{
-        femaleCont.innerHTML += `
-        <div id='${e.productId}'>
-            <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
-            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-            <h4>Rating: ${e.rating}</h4>
-            <button class='btn'>Add To Cart</button>
-        </div>
-        `
-    })
-
-
-    let kidsCont1 = allData.data.filter((e)=>{
-        if(e.category=='kids'){
-            return e
-        }
-    })
-    kidsCont1.map((e)=>{
-        kidsCont.innerHTML += `
-        <div id='${e.productId}'>
-            <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
-            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-            <h4>Rating: ${e.rating}</h4>
-            <button class='btn'>Add To Cart</button>
-        </div>
-        `
-    })
-
-    let electronics = allData.data.filter((e)=>{
-        if(e.category=='electronics'){
-            return e
-        }
-    })
-    electronics.map((e)=>{
-        electronicsCont.innerHTML += `
-        <div id='${e.productId}'>
-            <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
-            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-            <h4>Rating: ${e.rating}</h4>
-            <button class='btn'>Add To Cart</button>
-        </div>
-        `        
-    })
-
-    
-    //!SEARCHING FOR MOBILE 
-
-
-    search_mobile.addEventListener('click',()=>{
-        let div1 = document.createElement('div');
-            div1.className = 'design';
-        console.log('hey')
-        let search_mobile1 = allData.data.filter((e)=>{
-            if(e.type=='mobile'){
-                return e
-            }
-        })
-        
-        
-        productList1.innerHTML = ''
-        search_mobile1.map((e)=>{
-            div1.innerHTML += `
-           
-           <div id='${e.productId}'>
-           <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
-           ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-           <h4>Rating: ${e.rating}</h4>
-           <button class='btn'>Add To Cart</button>
-       </div>
-           
-            `        
-        })
-        productList1.appendChild(div1);
-        let btn = document.querySelectorAll('.btn')
-
-
-        btn.forEach((e)=>{
-            e.addEventListener('click',()=>{
-               popup.style.right='0'
-            })
-        })
-    })
-
-    //! SEARCHIN FOR LAPTOP
-    search_laptop.addEventListener('click',()=>{
-        let div1 = document.createElement('div');
-            div1.className = 'design';
-        let search_laptop1 = allData.data.filter((e)=>{
-            if(e.type=='laptop'){
-                return e
-            }
-        })
-        
-        productList1.innerHTML = ''
-        search_laptop1.map((e)=>{
-            div1.innerHTML += `
-           
-           <div id='${e.productId}'>
-           <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
-           ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-           <h4>Rating: ${e.rating}</h4>
-           <button class='btn'>Add To Cart</button>
-       </div>
-           
-            `        
-        })
-        productList1.appendChild(div1);
-        let btn = document.querySelectorAll('.btn')
-
-
-        btn.forEach((e)=>{
-            e.addEventListener('click',()=>{
-               popup.style.right='0'
-            })
-        })
-    })
-
-    //! SEARCHIN FOR watch
-    search_watch.addEventListener('click',()=>{
-        let div1 = document.createElement('div');
-            div1.className = 'design';
-        let search_watch1 = allData.data.filter((e)=>{
-            if(e.type=='watch'){
-                return e
-            }
-        })
-        
-        productList1.innerHTML = ''
-        search_watch1.map((e)=>{
-            div1.innerHTML += `
-           
-           <div id='${e.productId}'>
-           <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
-           ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-           <h4>Rating: ${e.rating}</h4>
-           <button class='btn'>Add To Cart</button>
-       </div>
-           
-            `        
-        })
-        productList1.appendChild(div1);
-        let btn = document.querySelectorAll('.btn')
-
-
-        btn.forEach((e)=>{
-            e.addEventListener('click',()=>{
-               popup.style.right='0'
-            })
-        })
-    })
-    
-    //! SEARCHIN FOR headphones
-    search_headphones.addEventListener('click',()=>{
-        let div1 = document.createElement('div');
-            div1.className = 'design';
-        let search_headphones1 = allData.data.filter((e)=>{
-            if(e.type=='headphones'){
-                return e
-            }
-        })
-        
-        productList1.innerHTML = ''
-        search_headphones1.map((e)=>{
-            div1.innerHTML += `
-           
-           <div id='${e.productId}'>
-           <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
-           ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
-           <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
-           <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
-           <h4>Rating: ${e.rating}</h4>
-           <button class='btn'>Add To Cart</button>
-       </div>
-           
-            `        
-        })
-        productList1.appendChild(div1);
-        let btn = document.querySelectorAll('.btn')
-
-
-        btn.forEach((e)=>{
-            e.addEventListener('click',()=>{
-               popup.style.right='0'
-            })
-        })
-    })
-
-
-    // let inputSearch = allData.data.filter((e)=>{
-    //    let b =  e.searchTags.find((e)=>{e=='Headphone'}) || e.category.includes("Headphone") ;
-
-    // if(b){console.log( e)}
-
-    // })
-
-    
-    let btn = document.querySelectorAll('.btn')
-
-
-        btn.forEach((e)=>{
-            e.addEventListener('click',()=>{
-               popup.style.right='0'
-
-               if(particularUser){
-                let parentElement = e.parentElement.id
-                console.log(parentElement)
-
-                let oneProduct = allData.data.find((e)=>{
-                    if(e.productId == parentElement){
-                        return e
-                    }
-                })
-                cartStorage.push(oneProduct)
-                dynamic.innerHTML = ''
-                cartStorage.map((e)=>{
-                    dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
-                    <div><img src="${e.productImageURLs[0]}" alt=""></div>
-                    <div>
-                        <h2>${e.name}</h2>
-                        <input type="number" name="" id="">
-                    </div>
-                    <div>
-                        <h3>${e.price}</h3>
-                    </div>
-                    <div>
-                        <h4>${e.price}</h4>
-                    </div>
-                </div>`
-                })
-            }else{
-                dynamic.innerHTML='<a href="./index.html">login first </a>'
-               }
-            })
-        })
-}
-fetchData()

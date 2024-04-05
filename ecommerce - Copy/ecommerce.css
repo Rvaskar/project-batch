@@ -3,6 +3,7 @@ body{
     background-color: aliceblue;
     padding: 0;
 }
+
 ::-webkit-scrollbar{
     width: 5px;
     margin-right: 5px;
@@ -237,7 +238,7 @@ nav>.right>span>.userDetails>p{
 
 .design > div>img{
     width: 100%;
-    
+    object-fit: cover;
     height: 300px;
     box-shadow: rgb(255, 255, 255) 0px 0px 0px 1px inset, rgba(215, 215, 215, 0.9) 0px 0px 0px 1px;
     border-radius: 10px 10px 0 0;
@@ -256,6 +257,7 @@ nav>.right>span>.userDetails>p{
     margin-bottom: 10px;
     font-size: 1.2rem;
     text-align: center;
+    cursor: pointer;
     
 }
 /* .design >div>h4{

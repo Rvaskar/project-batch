@@ -1,0 +1,127 @@
+.outercont_showProductDetails{
+    width: 90%;
+    height: 92vh;
+    margin: auto;
+    background-color: #e0f4ff;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    padding: 1rem;
+    display: none;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    column-gap: 5rem;
+    margin-top: 2rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.showProductDetails{
+    display: flex;
+    margin: auto;
+    padding: 2px;
+    column-gap: 5rem;
+
+}
+
+.showProductLeft{
+    width: 40%;
+    padding-left: 1rem;
+    border-right: 2px solid rgb(47, 0, 255);
+}
+
+.showProductLeft .showImgs{
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+}
+.showProductLeft .showAllImages{
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 10px;
+    align-items: center;
+    height: 45px;
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+    scrollbar-width: 5px;
+    object-fit: cover;
+    border-bottom: 1ox solid darkmagenta;
+}
+.showProductLeft .showAllImages img{
+    width: 50px;
+    height: 50px;
+    border: 2px solid darkblue;
+    object-fit: contain;
+}
+.showProductLeft .reviewsCont{
+    width: 100%;
+    /* margin-top: 2rem; */
+    height: 170px;
+
+    overflow: hidden;
+    overflow-y: scroll;
+
+
+}
+.showProductLeft .reviewsCont p{
+    margin: 5px;
+}
+.showProductLeft h2{
+    margin: 5px;
+    margin-bottom: 0;
+    color: rgb(0, 5, 100) !important;
+    border-bottom: 1px solid rgb(67, 139, 0);
+}
+.showProductLeft .reviewsCont h4{
+    margin: 5px;
+    border-bottom: 1px solid darkblue;
+}
+.showProductDetails .productInfo{
+    width: 50%;
+
+}
+.productInfo .offer{
+    margin-left: 1rem;
+    background-color: rgb(236, 0, 0);
+    padding: 2px 10px;
+    color: white;
+}
+
+.productInfo .strike{
+    text-decoration: line-through;
+}
+.productInfo .deal-off{
+    color: red;
+    margin-left: 5px;
+}
+.productInfo .superscript {
+    vertical-align: super;
+    font-size: smaller;
+}
+.outercont_showProductDetails #x1{
+    margin: 0;
+    font-size: 2rem;
+    width: 50px;
+    cursor: pointer;
+}
+.productInfo h1,h2,h3,h4,h5,h6{
+    margin-top:  0;
+    margin-bottom: 5px;
+
+}
+.productInfo p{
+    margin: 0;
+    border-bottom: 0.1px solid darkblue;
+    border-top: 0.1px solid darkblue;
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+}

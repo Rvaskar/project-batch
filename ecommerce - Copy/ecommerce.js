@@ -5,12 +5,23 @@ let kidsCont = document.querySelector('#kidsCont')
 let electronicsCont = document.querySelector('#electronicsCont')
 let popup = document.querySelector('#popup')
 let x = document.querySelector('#x')
+let x1 = document.querySelector('#x1')
 let defineCont = document.querySelector('#defineCont')
 let search_mobile = document.querySelector('#search-mobile')
 let search_laptop = document.querySelector('#search-laptop')
 let search_watch = document.querySelector('#search-watch')
 let search_headphones = document.querySelector('#search-headphones')
 let dynamic = document.querySelector('#dynamic')
+let serach = document.querySelector('#serach')
+let searchProductBtn = document.querySelector('#searchProduct')
+let showProductDetails = document.querySelector('.showProductDetails')
+let outercont_showProductDetails = document.querySelector('.outercont_showProductDetails')
+
+
+searchProductBtn.addEventListener('click',()=>{
+    console.log(serach.value)
+})
+
 
 let cartStorage = []
 
@@ -60,7 +71,7 @@ async function fetchData(){
         defineCont.innerHTML += `
         <div id='${e.productId}'>
             <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
+            <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
             ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
             <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
             <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -81,7 +92,7 @@ async function fetchData(){
         maleCont.innerHTML += `
         <div id='${e.productId}'>
             <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
+            <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
             ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
             <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
             <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -100,7 +111,7 @@ async function fetchData(){
         femaleCont.innerHTML += `
         <div id='${e.productId}'>
             <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
+            <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
             ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
             <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
             <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -120,7 +131,7 @@ async function fetchData(){
         kidsCont.innerHTML += `
         <div id='${e.productId}'>
             <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
+            <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
             ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
             <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
             <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -139,7 +150,7 @@ async function fetchData(){
         electronicsCont.innerHTML += `
         <div id='${e.productId}'>
             <img src="${e.productImageURLs[0]}" alt="">
-            <h2>${e.name.slice(0,50)}</h2>
+            <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
             ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
             <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
             <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -170,7 +181,7 @@ async function fetchData(){
            
            <div id='${e.productId}'>
            <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
+           <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -180,15 +191,31 @@ async function fetchData(){
            
             `        
         })
-        productList1.appendChild(div1);
+        
         let btn = document.querySelectorAll('.btn')
+        console.log(btn)
 
 
         btn.forEach((e)=>{
             e.addEventListener('click',()=>{
                popup.style.right='0'
+               if(particularUser){
+                let parentElement = e.parentElement.id
+                console.log(parentElement)
+
+                let oneProduct = allData.data.find((e)=>{
+                    if(e.productId == parentElement){
+                        return e
+                    }
+                })
+                cartStorage.push(oneProduct)
+                
+            }else{
+                dynamic.innerHTML='<a href="./index.html">login first </a>'
+               }
             })
         })
+        
     })
 
     //! SEARCHIN FOR LAPTOP
@@ -206,7 +233,7 @@ async function fetchData(){
            
            <div id='${e.productId}'>
            <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
+           <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -216,18 +243,35 @@ async function fetchData(){
            
             `        
         })
-        productList1.appendChild(div1);
+
         let btn = document.querySelectorAll('.btn')
+        console.log(btn)
 
 
         btn.forEach((e)=>{
             e.addEventListener('click',()=>{
                popup.style.right='0'
+               if(particularUser){
+                let parentElement = e.parentElement.id
+                console.log(parentElement)
+
+                let oneProduct = allData.data.find((e)=>{
+                    if(e.productId == parentElement){
+                        return e
+                    }
+                })
+                cartStorage.push(oneProduct)
+                
+            }else{
+                dynamic.innerHTML='<a href="./index.html">login first </a>'
+               }
             })
         })
+    
+       
     })
 
-    //! SEARCHIN FOR watch
+    //! SEARCHING FOR watch
     search_watch.addEventListener('click',()=>{
         
         let search_watch1 = allData.data.filter((e)=>{
@@ -242,28 +286,42 @@ async function fetchData(){
            
            <div id='${e.productId}'>
            <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
+           <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
            <h4>Rating: ${e.rating}</h4>
            <button class='btn'>Add To Cart</button>
        </div>
-           
-            `        
+            `
         })
-        productList1.appendChild(div1);
+  
         let btn = document.querySelectorAll('.btn')
+        console.log(btn)
 
 
         btn.forEach((e)=>{
             e.addEventListener('click',()=>{
                popup.style.right='0'
+               if(particularUser){
+                let parentElement = e.parentElement.id
+                console.log(parentElement)
+
+                let oneProduct = allData.data.find((e)=>{
+                    if(e.productId == parentElement){
+                        return e
+                    }
+                })
+                cartStorage.push(oneProduct)
+                
+            }else{
+                dynamic.innerHTML='<a href="./index.html">login first </a>'
+               }
             })
         })
     })
     
-    //! SEARCHIN FOR headphones
+    //! SEARCHING FOR headphones
     search_headphones.addEventListener('click',()=>{
         
         let search_headphones1 = allData.data.filter((e)=>{
@@ -278,7 +336,7 @@ async function fetchData(){
            
            <div id='${e.productId}'>
            <img src="${e.productImageURLs[0]}" alt="">
-           <h2>${e.name.slice(0,50)}</h2>
+           <h2 id='showInfo'>${e.name.slice(0,50)}</h2>
            ${e.offer>0? `<span class='offer'>${e.offer}% off</span><span class='deal-off'>Limited time deal</span>
            <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-e.offer)*e.price)/100)}.00  </h3>
            <h3 class='strike'>M.R.P.: &#8377; ${e.price}  </h3>` : `<h3>M.R.P.: &#8377; ${e.price}  </h3>`}
@@ -288,13 +346,28 @@ async function fetchData(){
            
             `        
         })
-        productList1.appendChild(div1);
+    
         let btn = document.querySelectorAll('.btn')
+        console.log(btn)
 
 
         btn.forEach((e)=>{
             e.addEventListener('click',()=>{
                popup.style.right='0'
+               if(particularUser){
+                let parentElement = e.parentElement.id
+                console.log(parentElement)
+
+                let oneProduct = allData.data.find((e)=>{
+                    if(e.productId == parentElement){
+                        return e
+                    }
+                })
+                cartStorage.push(oneProduct)
+                
+            }else{
+                dynamic.innerHTML='<a href="./index.html">login first </a>'
+               }
             })
         })
     })
@@ -315,6 +388,7 @@ async function fetchData(){
             e.addEventListener('click',()=>{
                popup.style.right='0'
 
+
                if(particularUser){
                 let parentElement = e.parentElement.id
                 console.log(parentElement)
@@ -325,6 +399,7 @@ async function fetchData(){
                     }
                 })
                 cartStorage.push(oneProduct)
+                cartStorage = [...new Set(cartStorage)];
                 dynamic.innerHTML = ''
                 cartStorage.map((e)=>{
                     dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
@@ -346,5 +421,66 @@ async function fetchData(){
                }
             })
         })
+
+
+        let showInfo = document.querySelectorAll('#showInfo')
+        console.log(showInfo)
+        showInfo.forEach((e)=>{
+            e.addEventListener('click',()=>{
+                outercont_showProductDetails.style.display = 'block'
+
+
+                let parentElement = e.parentElement.id
+                console.log(parentElement)
+
+                let oneProduct = allData.data.find((e)=>{
+                    if(e.productId == parentElement){
+                        return e
+                    }
+                })
+                console.log(oneProduct)
+                console.log(typeof oneProduct)
+                console.log(oneProduct.name)
+                showProductDetails.innerHTML = ``
+                
+                    showProductDetails.innerHTML += ` 
+                    
+                    <div class="showProductLeft">
+                <div class="showImgs">
+                    <img src=" ${oneProduct.productImageURLs[0]}" alt="">
+                </div>
+                <hr>
+                <div class="showAllImages">
+                <img src=" ${oneProduct.productImageURLs[0]}" alt="">
+                <img src=" ${oneProduct.productImageURLs[1]}" alt="">
+                <img src=" ${oneProduct.productImageURLs[2]}" alt="">
+                </div>
+                <div class="reviewsCont">
+                    <h2>Customer Reviews</h2>
+                    <div>
+                        <p>good and best</p>
+                        <h4>- parimal</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="productInfo">
+                <h1>${oneProduct.name}</h1>
+                <h4>${oneProduct.title}</h4>
+                <h3>${oneProduct.brand}</h3>
+                <hr>
+                ${oneProduct.offer>0? `<span class='offer'>${oneProduct.offer}% off</span><span class='deal-off'>Limited time deal</span>
+                <h3><sup class='superscript'>&#8377;</sup> ${Math.floor(((100-oneProduct.offer)*oneProduct.price)/100)}.00  </h3>
+                <h3 class='strike'>M.R.P.: &#8377; ${oneProduct.price}  </h3>` : `<h3>M.R.P.: &#8377; ${oneProduct.price}  </h3>`}
+                <h2>Description:</h2>
+                <p>${oneProduct.description.replaceAll('\n','<br>').replaceAll('\t','<b>:</b>')}</p>
+            </div>
+                    `
+                
+            })
+        })
 }
+x1.addEventListener('click',()=>{
+    outercont_showProductDetails.style.display = 'none'
+})
+
 fetchData()

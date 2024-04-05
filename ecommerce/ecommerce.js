@@ -133,22 +133,15 @@ async function fetchData(){
                     }
                 })
                 cartStorage.push(oneProduct)
-                dynamic.innerHTML = ''
-                cartStorage.map((e)=>{
-                    dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
-                    <div><img src="${e.productImageURLs[0]}" alt=""></div>
-                    <div>
-                        <h2>${e.name}</h2>
-                        <input type="number" name="" id="">
-                    </div>
-                    <div>
-                        <h3>${e.price}</h3>
-                    </div>
-                    <div>
-                        <h4>${e.price}</h4>
-                    </div>
-                </div>`
-                })
+
+                print()
+
+                subTotal()
+
+
+                del();
+                grandTotal();
+
             }else{
                 dynamic.innerHTML='<a href="./index.html">login first </a>'
                }
@@ -156,3 +149,81 @@ async function fetchData(){
         })
 }
 fetchData()
+
+
+
+function print(){
+    dynamic.innerHTML = ''
+        cartStorage.map((e)=>{
+            dynamic.innerHTML += ` <div class="cart-design" id='${e.productId}'>
+            <div><img src="${e.productImageURLs[0]}" alt=""></div>
+            <div>
+                <h2>${e.name}</h2>
+                <input type="number" name="" id="">
+            </div>
+            <div>
+                <h3 class='price'>${e.price}</h3>
+            </div>
+            <div>
+                <h4 class='subTotal'>${e.price}</h4>
+                <i class="fa-solid fa-trash"></i>
+            </div>
+        </div>`
+        })
+        del()
+}
+
+function del(){
+    let trash = document.querySelectorAll('.fa-trash')
+        trash.forEach((e)=>{
+            e.addEventListener('click',()=>{
+                console.log(e)
+                let parentElement = e.parentElement.parentElement;
+                console.log(parentElement)
+                cartStorage = cartStorage.filter((e)=>{
+                    if(parentElement.id != e.productId){
+                        return e;
+                    }
+                })
+                console.log(cartStorage)
+
+                print()
+                grandTotal()    
+
+            })
+        })
+}
+
+function subTotal(){
+    let sub = document.querySelectorAll('.subTotal')
+                console.log(sub)
+                let quantity = document.querySelectorAll('input')
+                quantity.forEach((e)=>{
+                    e.addEventListener('input',()=>{
+                        if(e.value <1){
+                            e.value = 1;
+                        }
+
+                        let parentElement = e.parentElement.parentElement;
+                        let price = parentElement.querySelector('.price')
+                        let sub = parentElement.querySelector('.subTotal')
+                        sub.innerHTML =e.value*price.innerHTML
+                        grandTotal()
+                    })
+                })
+
+}
+
+
+function grandTotal(){
+    let gt = document.querySelector('#gt')
+    let sub =  document.querySelectorAll('.subTotal')
+    let sum = 0;
+    sub.forEach((e)=>{
+        let  total = parseInt(e.innerHTML);
+        sum = sum + total
+
+    })
+
+    gt.innerHTML = sum
+}

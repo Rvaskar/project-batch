@@ -6,24 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./ecommerce.css" rel="stylesheet">
+    <link href="./style2.css" rel="stylesheet">
+    <link rel="stylesheet" href="payment.css">
     <link rel="shortcut icon" href="./image/icons8-cart-30.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-
     <!-- fontawesome -->
-
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-462d1fe….css?vsn=d">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
 </head>
-
-<body>
+<body id="body">
     <nav>
         <div class="left"><img src="./image/logo3.png" alt="" width="150px" height="auto"></div>
         <div class="main">
             <ul>
-                <li><a href="./ecommerce.html">Home</a></li>
+                <li><a href="#body">Home</a></li>
                 <li><a href="#maleSection">Male</a></li>
                 <li><a href="#femaleSection">Female</a></li>
                 <li><a href="#kids">Kids</a></li>
@@ -31,24 +30,23 @@
             </ul>
         </div>
         <div class="right">
-
-            
             <a href="./index.html"><button>Sign In</button></a>
             <a href="./signup.html"><button>Sign Up</button></a>
-            
         </div>
-    </nav >
+    </nav>
     <main class="nav2">
-        <div class="nav2-left"><ul>
-            <li id="search-mobile"><a href="#">mobile</a></li>
-            <li id="search-laptop"><a href="#">laptop</a></li>
-            <li id="search-watch"><a href="#">Watch</a></li>
-            <li id="search-headphones"><a href="#">headphones</a></li>
-            <li><a href="#">shoe</a></li>
-        </ul></div>
-        <div class="nav2-right"><input type="text" name="" id="serach" placeholder="Search "><button id="searchProduct"><i class="fa-solid fa-magnifying-glass""></i></button></div>
+        <div class="nav2-left">
+            <ul>
+                <li id="search-mobile"><a href="#">mobile</a></li>
+                <li id="search-laptop"><a href="#">laptop</a></li>
+                <li id="search-watch"><a href="#">Watch</a></li>
+                <li id="search-headphones"><a href="#">headphones</a></li>
+                <li id="search-beauty"><a href="#">Beauty</a></li>
+            </ul>
+        </div>
+        <div class="nav2-right"><input type="text" name="" id="serach" placeholder="Search "><button
+                id="searchProduct"><i class="fa-solid fa-magnifying-glass""></i></button></div>
     </main>
-
     <section id="popup">
         <div id="static">
             <h3 id="x"><i class="fa-solid fa-xmark"></i></h3>
@@ -57,39 +55,111 @@
 
         </div>
         <div id="dynamic">
-           
+
+        </div>
+        <div id="footer">
+            <h2>
+                <h2>Grand Total : Rs. <span id="gt">0</span></h2>
+                <button onclick="proceedToPay()">Make Payment</button>
+            </h2>
         </div>
     </section>
-    <div id="dynamic">
-        <div id="cart-design" id="">
-            
+    <section id="payment">
+        <div class="outer_payment_cont">
+            <h3 id="xp"><i class="fa-solid fa-xmark"></i></h3>
+            <div class="payment_details">
 
+            <div class="payment_left">
+                <h2>Scan And Pay</h2>
+                <img src="./image/qrcode.png" alt="">
+            </div>
+            <div class="payment_right">
+                <h2>Payment Methods</h2>
+                <p><input type="radio" name="payment"  id="credit_card" value="credit_card" ><label for="credit_card">Creadit or debit card</label>
+                </p>
+                <p>
+                    <input type="radio" name="payment" id="EMI" value="emi" ><label for="EMI">EMI</label>
+                    <select id="emi_payment">
+                        <option disabled selected></option>
+                        <option value="op1">Add new card</option>
+                    </select>
+                </p>
+                <p>
+                    <input type="radio" name="payment" id="net_banking"><label for="net_banking">Net Banking</label>
+                    <select id="net_banking_cont">
+                        <option disabled selected>select bank</option>
+                        <option value="op1">Airtel payment bank</option>
+                        <option value="op1">Axis Bank</option>
+                        <option value="op1">ICICI Bank</option>
+                        <option value="op1">HDFC Bank</option>
+                        <option value="op1">Kotak Bank</option>
+                        <option value="op1">State Bank Of India</option>
+                        <option value="op1">Bank Of India</option>
+                    </select>
+                </p>
+                <p>
+                    <input type="radio" name="payment" id="cash_on_delivery"><label for="cash_on_delivery">Cash on Delivery/ Pay on Delivery</label>
+                </p>
+                <form id="for_Payment" action="">
+                <p>
+                    <label for="userName">Name</label>
+                    <input type="text" name="userName" id="userName">
+                </p>
+                <p>
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" name="cardNumber" id="cardNumber">
+                </p>
+                <p>
+                <label for="cardExpire">Expiration (mm/yy)</label>
+                <input type="date" name="cardExpire" id="cardExpire">
+                <label for="passCode">Security Code</label>
+                <input type="text" name="passCode" id="passCode">
+                </p>
+                </form>
+                <button id="donePayment" type="button">Done</button>
+            </div>
+            </div>
         </div>
-    </div>
+    </section>
+        <section class="outercont_showProductDetails">
+            <h3 id="x1"><i class="fa-solid fa-xmark"></i></h3>
+        <div class="showProductDetails">
+            
+        </div>
+    </section>  
+        <div id="dynamic">
+            <div id="cart-design" id="">
+            </div>
+        </div>
 
-    <main id="productList">
-        <section class="section-Cont" id="maleSection" >
-            <div class="design" id="maleCont">
-                
-            </div>
-        </section>
-        <section id="femaleSection">
-            <div class="design" id="femaleCont">
-                
-            </div>
-        </section>
-        <section id="kids">
-            <div class="design" id="kidsCont">
-                
-            </div>
-        </section>
-        <section id="electronics">
-            <div class="design" id="electronicsCont">
-                
-            </div>
-        </section>
-    </main>
-    <script src="./ecommerce.js"></script>
+        <main id="productList">
+            <section class="section-Cont" id="define">
+                <div class="design" id="defineCont">
+
+                </div>
+            </section>
+            <section class="section-Cont" id="maleSection">
+                <div class="design" id="maleCont">
+
+                </div>
+            </section>
+            <section id="femaleSection">
+                <div class="design" id="femaleCont">
+
+                </div>
+            </section>
+            <section id="kids">
+                <div class="design" id="kidsCont">
+
+                </div>
+            </section>
+            <section id="electronics">
+                <div class="design" id="electronicsCont">
+
+                </div>
+            </section>
+        </main>
+         <script src="./ecommerce.js"></script>
 </body>
 
 </html>
